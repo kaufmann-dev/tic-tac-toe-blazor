@@ -1,0 +1,58 @@
+﻿@page "/"
+<div class="container">
+    <div class="jumbotron">
+        <h1>TicTacToe</h1>
+    </div>
+    <div class="h-100">
+        @for (int y = 0; y < 3; y++)
+        {
+            <div class="row h-50 justify-content align-items-center">
+                @for (int x = 0; x < 3; x++)
+                {
+                    int tempx = x;
+                    int tempy = y;
+                    <div class="col-3 text-center"><span style="color: @GetColor(x, y)" @onclick="() => SetToken(tempx, tempy)">@playfield[x, y]</span></div>
+                }
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+
+    string[,] playfield = new string[,]
+    {
+        {
+            "?", "?", "?"
+        },
+        {
+            "?", "?", "?"
+        },
+        {
+            "?", "?", "?"
+        }
+    };
+
+    int count = 0;
+    public void SetToken(int x, int y)
+    {
+        if(playfield[x,y]=="?")
+            playfield[x, y] =(count++%2==0)? "x":"o";
+        
+    }
+
+    public string GetColor(int x, int y)
+    {
+        switch (playfield[x,y])
+        {
+            case "x":
+                return "red";
+            case "o":
+                return "blue";
+            default:
+                return "black";
+                
+        }
+    }
+
+}
